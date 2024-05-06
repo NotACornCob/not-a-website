@@ -11,12 +11,12 @@ const ctx = canvas.getContext("2d");
 const ballRadius = 30;
 const colors = ["red","green","yellow","blue","orange"];
 const paddleHeight = 10;
-const paddleWidth = 75;
+const paddleWidth = 125;
+let x = canvas.width / 2;
+let y = canvas.height - 30;
 let paddleX = (canvas.width - paddleWidth) / 2;
 let rightPressed = false;
 let leftPressed = false;
-let x = canvas.width / 2;
-let y = canvas.height - 30;
 let dx = 3;
 let dy = -3;
 let i =0;
@@ -54,10 +54,22 @@ function drawBall() {
         dx = -dx;
         return randomColor(i);
     }
-    if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
+    if (y + dy < ballRadius) {
         dy = -dy;
         return randomColor(i);
     }
+    else if (y + dy > canvas.height - ballRadius) {
+      if (x > paddleX && x < paddleX + paddleWidth) {
+          dy = -dy;
+          return randomColor(i);
+    } 
+    else {
+            alert("GAME OVER");
+            document.location.reload();
+            clearInterval(interval);
+          }
+        }
+  
     if (rightPressed) {
       paddleX = Math.min(paddleX + 7, canvas.width - paddleWidth);
     } 
@@ -87,4 +99,4 @@ function drawBall() {
     }
   }
 
-  setInterval(draw, 10);
+const interval = setInterval(draw, 10);
