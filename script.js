@@ -8,6 +8,7 @@ document.querySelector("body").appendChild(h2);
 
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
+const webText = document.getElementById("webText")
 const ballRadius = 30;
 const colors = ["red","green","yellow","blue","orange"];
 const paddleHeight = 10;
@@ -28,6 +29,12 @@ function randomColor() {
   return i++;
 }
 
+function drawText() {
+  ctx.font = "bold 72px Pixelify Sans";
+  ctx.fillStyle = colors[i];
+  ctx.fillText("NotAWebsite", 666, 450);
+}
+
 function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
@@ -44,15 +51,16 @@ function drawBall() {
     ctx.closePath();
   }
   
-  
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
     drawPaddle();
+    drawText();
 
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
         return randomColor(i);
+        
     }
     if (y + dy < ballRadius) {
         dy = -dy;

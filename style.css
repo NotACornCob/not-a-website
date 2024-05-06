@@ -11,3 +11,28 @@ body {
     display: block;
     margin: 0 auto;
   }
+
+  @font-face {
+    font-family: Pixelify Sans;
+    src: url(NotAWebsite\PixelifySans-VariableFont_wght.ttf);
+  }
+
+  html {
+    font-family: Pixelify Sans;
+  }
+
+  h1 {
+    font-family: Pixelify Sans;
+    font-size: 72px;
+    color:rgb(30, 210, 39);
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    padding-top: 400px;
+    padding-bottom: 450px;
+  }
+
+  .container {
+    position: relative;
+  }
