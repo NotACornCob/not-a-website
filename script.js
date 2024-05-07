@@ -8,9 +8,8 @@ document.querySelector("body").appendChild(h2);
 
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
-const webText = document.getElementById("webText")
 const ballRadius = 30;
-const colors = ["red","green","yellow","blue","orange"];
+const colors = ["purple","green","yellow","blue","orange"];
 const paddleHeight = 10;
 const paddleWidth = 125;
 let x = canvas.width / 2;
@@ -29,10 +28,16 @@ function randomColor() {
   return i++;
 }
 
-function drawText() {
+function drawMainText() {
   ctx.font = "bold 72px Pixelify Sans";
   ctx.fillStyle = colors[i];
   ctx.fillText("NotAWebsite", 666, 450);
+}
+
+function drawGameOver() {
+  ctx.font = "bold 72px Pixelify Sans";
+  ctx.fillStyle = "red";
+  ctx.fillText("You Dead ;_;", 666, 450);
 }
 
 function drawBall() {
@@ -55,7 +60,7 @@ function drawBall() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
     drawPaddle();
-    drawText();
+    drawMainText();
 
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -67,14 +72,14 @@ function drawBall() {
         return randomColor(i);
     }
     else if (y + dy > canvas.height - ballRadius) {
-      if (x > paddleX && x < paddleX + paddleWidth) {
+    if (x > paddleX && x < paddleX + paddleWidth) {
           dy = -dy;
           return randomColor(i);
     } 
     else {
-            alert("GAME OVER");
-            document.location.reload();
-            clearInterval(interval);
+          clearInterval(interval);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          setInterval(drawGameOver, 10);
           }
         }
   
@@ -90,6 +95,14 @@ function drawBall() {
 
   document.addEventListener("keydown", keyDownHandler, false);
   document.addEventListener("keyup", keyUpHandler, false);
+  document.addEventListener("mousemove", mouseMoveHandler, false);
+
+  function mouseMoveHandler(e) {
+    const relativeX = e.clientX - canvas.offsetLeft;
+    if (relativeX > 0 && relativeX < canvas.width) {
+      paddleX = relativeX - paddleWidth / 2;
+    }
+  }
 
   function keyDownHandler(e) {
     if (e.key === "Right" || e.key === "ArrowRight") {
