@@ -39,7 +39,7 @@ function drawGameOver() {
   ctx.fillStyle = "red";
   ctx.fillText("You Dead ;_;", 666, 450);
   document.getElementById("myCanvas").removeAttribute("onclick")
-  document.getElementById("myCanvas").addEventListener("onclick", mouseClickHandler2);
+  document.getElementById("myCanvas").addEventListener("click", mouseClickHandler2);
 }
 
 function drawBall() {
