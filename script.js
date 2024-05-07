@@ -1,8 +1,6 @@
 const h2 = document.createElement("h2");
-
-h2.textContent = "This content added by JavaScript";
-
 document.querySelector("body").appendChild(h2);
+
 
 //Game Code Start
 
@@ -17,6 +15,8 @@ let y = canvas.height - 30;
 let paddleX = (canvas.width - paddleWidth) / 2;
 let rightPressed = false;
 let leftPressed = false;
+let mouseClick = false;
+let gameOver = false;
 let dx = 3;
 let dy = -3;
 let i =0;
@@ -38,6 +38,8 @@ function drawGameOver() {
   ctx.font = "bold 72px Pixelify Sans";
   ctx.fillStyle = "red";
   ctx.fillText("You Dead ;_;", 666, 450);
+  document.getElementById("myCanvas").removeAttribute("onclick")
+  document.getElementById("myCanvas").addEventListener("click", mouseClickHandler2);
 }
 
 function drawBall() {
@@ -79,7 +81,7 @@ function drawBall() {
     else {
           clearInterval(interval);
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-          setInterval(drawGameOver, 10);
+          const intervalGameOver = setInterval(drawGameOver, 10);
           }
         }
   
@@ -96,13 +98,8 @@ function drawBall() {
   document.addEventListener("keydown", keyDownHandler, false);
   document.addEventListener("keyup", keyUpHandler, false);
   document.addEventListener("mousemove", mouseMoveHandler, false);
-
-  function mouseMoveHandler(e) {
-    const relativeX = e.clientX - canvas.offsetLeft;
-    if (relativeX > 0 && relativeX < canvas.width) {
-      paddleX = relativeX - paddleWidth / 2;
-    }
-  }
+  document.addEventListener("onclick", mouseClickHandler, false);
+  document.addEventListener("onclick2", mouseClickHandler2, false);
 
   function keyDownHandler(e) {
     if (e.key === "Right" || e.key === "ArrowRight") {
@@ -119,5 +116,22 @@ function drawBall() {
       leftPressed = false;
     }
   }
+
+  function mouseMoveHandler(e) {
+    const relativeX = e.clientX - canvas.offsetLeft;
+    if (relativeX > 0 && relativeX < canvas.width) {
+      paddleX = relativeX - paddleWidth / 2;
+    }
+  }
+
+  function mouseClickHandler(e) {
+    randomColor(i);
+  }
+
+  function mouseClickHandler2(e) {
+    document.location.reload();
+    clearInterval(intervalGameOver);
+  }
+
 
 const interval = setInterval(draw, 10);
