@@ -7,7 +7,7 @@ document.querySelector("body").appendChild(h2);
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 const ballRadius = 30;
-const colors = ["purple","green","yellow","blue","orange"];
+const colors = ["#ffbe0b","#FB5607","#FF006E","#8338EC","#3A86FF"];
 const paddleHeight = 10;
 const paddleWidth = 125;
 let x = canvas.width / 2;
@@ -39,7 +39,7 @@ function drawGameOver() {
   ctx.fillStyle = "red";
   ctx.fillText("You Dead ;_;", 666, 450);
   document.getElementById("myCanvas").removeAttribute("onclick")
-  document.getElementById("myCanvas").addEventListener("click", mouseClickHandler2);
+  document.getElementById("myCanvas").addEventListener("onclick", mouseClickHandler2);
 }
 
 function drawBall() {
